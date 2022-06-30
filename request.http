@@ -32,3 +32,36 @@ Content-Type: application/json
 GET {{ BASE_URL }}/auth/me
 Content-Type: application/json
 Authorization: Bearer {{ token }}
+
+
+###
+GET {{ BASE_URL }}/posts
+Content-Type: application/json
+Authorization: Bearer {{ token }}
+
+
+###
+POST {{ BASE_URL }}/posts
+Content-Type: application/json
+Authorization: Bearer {{ token }}
+
+{
+  "title": "Hello World",
+  "body": "HoHoHo"
+}
+
+
+###
+GET {{ BASE_URL }}/posts/1
+Content-Type: application/json
+Authorization: Bearer {{ token }}
+
+
+###
+PATCH {{ BASE_URL }}/posts/1
+Content-Type: application/json
+Authorization: Bearer {{ token }}
+
+{
+  "body": "jjjjjjjjjjnnnnnnnknknknknknknknknknknyvgcgc"
+}

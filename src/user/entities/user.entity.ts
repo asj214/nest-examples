@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, BeforeInsert } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, BeforeInsert, OneToMany } from "typeorm";
 import { IsEmail } from 'class-validator';
 import { Exclude } from 'class-transformer';
+import { PostEntity } from "src/post/entities/post.entity";
 import * as argon2 from 'argon2';
 
 @Entity({ name: 'users' })
@@ -36,6 +37,9 @@ export class User {
   async hashPassword() {
     this.password = await argon2.hash(this.password);
   }
+
+  @OneToMany(type => PostEntity, post => post.user)
+  posts: PostEntity[];
 
   constructor(partial?: Partial<User>) {
     if (partial) Object.assign(this, partial);
