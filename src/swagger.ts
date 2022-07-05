@@ -6,15 +6,13 @@ export function initSwagger(app: INestApplication): void {
     .setTitle('Nest Example')
     .setDescription('Nest Example Swagger API')
     .setVersion('1.0.0')
-    //JWT 토큰 설정
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        name: 'JWT',
-        in: 'header',
-      },
-      'access-token',
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      name: 'JWT',
+      in: 'header',
+    },
+    'access-token'
     )
     .build();
 
