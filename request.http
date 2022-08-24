@@ -1,4 +1,4 @@
-@BASE_URL = http://localhost:3000
+@BASE_URL = http://localhost:8080
 
 ###
 GET {{ BASE_URL }}
@@ -31,7 +31,7 @@ Content-Type: application/json
 ###
 GET {{ BASE_URL }}/auth/me
 Content-Type: application/json
-Authorization: Bearer {{ token }}
+Authorization: Bearer {{ token }}222
 
 
 ###
