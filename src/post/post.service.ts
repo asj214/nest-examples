@@ -9,8 +9,6 @@ import { User } from 'src/user/entities/user.entity';
 @Injectable()
 export class PostService {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
     @InjectRepository(PostEntity)
     private readonly postRepository: Repository<PostEntity>
   ) {}
@@ -24,8 +22,17 @@ export class PostService {
     return await this.postRepository.save(post);
   }
 
-  findAll() {
-    return `This action returns all post`;
+  async findAll() {
+    const [posts, count] = await this.postRepository.findAndCount({
+      relations: {
+        user: true,
+      },
+      order: {
+        id: 'DESC'
+      }
+    });
+
+    return { results: posts, count: count }
   }
 
   async findOne(id: number) {
@@ -47,10 +54,13 @@ export class PostService {
       throw new NotAcceptableException();
     }
 
+    const toUpdate = Object.assign(post, dto)
+    await this.postRepository.save(toUpdate)
+    return toUpdate
     return await this.postRepository.update(id, dto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async remove(id: number) {
+    return await this.postRepository.softDelete({ id: id });
   }
 }

@@ -52,16 +52,21 @@ Authorization: Bearer {{ token }}
 
 
 ###
-GET {{ BASE_URL }}/posts/1
+GET {{ BASE_URL }}/posts/20
 Content-Type: application/json
 Authorization: Bearer {{ token }}
 
 
 ###
-PATCH {{ BASE_URL }}/posts/1
+PATCH {{ BASE_URL }}/posts/10
 Content-Type: application/json
 Authorization: Bearer {{ token }}
 
 {
-  "body": "jjjjjjjjjjnnnnnnnknknknknknknknknknknyvgcgc"
+  "body": "Partial Update"
 }
+
+###
+DELETE {{ BASE_URL }}/posts/21
+Content-Type: application/json
+Authorization: Bearer {{ token }}
