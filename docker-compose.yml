@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  nest-examples:
+    platform: linux/x86_64
+    container_name: nest-examples
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "8080:8080"
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=
+      - MYSQL_DB_NAME=nest-examples
+    command: ["npm", "run", "start:dev"]
+    volumes:
+      - ./:/app/      
+    restart: always
+
+networks:
+  default:
+    external:
+      name: docker_db_net
