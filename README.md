@@ -1,5 +1,17 @@
 # NestJs Example
 
+### environment
+- Node v14.17.1
+- mysql 5.7
+
+
+### commands
+```sh
+# start
+npm run start:dev
+```
+
+
 
 ### migrations
 ```sh

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, NotAcceptableException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, getRepository } from 'typeorm';
 import { PostDto } from './dto/post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostEntity } from './entities/post.entity';
@@ -9,11 +9,42 @@ import { User } from 'src/user/entities/user.entity';
 @Injectable()
 export class PostService {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
     @InjectRepository(PostEntity)
     private readonly postRepository: Repository<PostEntity>
   ) {}
+
+  async findAll(query) {
+    const take = query.take || 10
+    const skip = query.skip || 0
+
+    /*
+    const qb = this.postRepository.createQueryBuilder('post');
+    qb.leftJoinAndSelect('post.user', 'user')
+    qb.orderBy('post.id', 'DESC');
+
+    const count = await qb.getCount();
+
+    qb.take(take);
+    qb.skip(skip);
+
+    const data = await qb.getMany();
+    */
+
+    // 질의를 세번하는데 .... 
+    const [data, count] = await this.postRepository.findAndCount({
+      relations: ['user'],
+      order: {
+        id: 'DESC'
+      },
+      take: take,
+      skip: skip
+    })
+
+    return {
+      count: count,
+      data: data
+    }
+  }
 
   async create(user: User, dto: PostDto) {
     const post = new PostEntity();
@@ -22,10 +53,6 @@ export class PostService {
     post.user = user;
 
     return await this.postRepository.save(post);
-  }
-
-  findAll() {
-    return `This action returns all post`;
   }
 
   async findOne(id: number) {
@@ -50,7 +77,7 @@ export class PostService {
     return await this.postRepository.update(id, dto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async remove(id: number) {
+    return await this.postRepository.softDelete({ id: id });
   }
 }

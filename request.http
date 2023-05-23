@@ -35,7 +35,7 @@ Authorization: Bearer {{ token }}
 
 
 ###
-GET {{ BASE_URL }}/posts
+GET {{ BASE_URL }}/posts?skip=0
 Content-Type: application/json
 Authorization: Bearer {{ token }}
 
@@ -65,3 +65,9 @@ Authorization: Bearer {{ token }}
 {
   "body": "jjjjjjjjjjnnnnnnnknknknknknknknknknknyvgcgc"
 }
+
+
+###
+DELETE {{ BASE_URL }}/posts/8
+Content-Type: application/json
+Authorization: Bearer {{ token }}

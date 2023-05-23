@@ -1,10 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Request, UseGuards, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Query,
+  Param,
+  Delete,
+  Request,
+  HttpCode,
+  UseGuards,
+  UseInterceptors,
+  ClassSerializerInterceptor
+} from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { PostService } from './post.service';
 import { PostDto } from './dto/post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { PostEntity } from './entities/post.entity';
 
 @Controller('posts')
 @ApiTags('posts')
@@ -12,24 +25,24 @@ import { PostEntity } from './entities/post.entity';
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
+  @Get()
+  @ApiOperation({ summary: '게시글 목록', description: '게시글 목록 API' })
+  findAll(@Query() query) {
+    return this.postService.findAll(query);
+  }
+
   @Post()
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('access-token')
   @ApiOperation({ summary: '게시글 작성', description: '게시글 작성 API' })
   async create(@Request() request, @Body() createPostDto: PostDto) {
-    return new PostEntity(await this.postService.create(request.user, createPostDto));
-  }
-
-  @Get()
-  @ApiOperation({ summary: '게시글 목록', description: '게시글 목록 API' })
-  findAll() {
-    return this.postService.findAll();
+    return await this.postService.create(request.user, createPostDto);
   }
 
   @Get(':id')
   @ApiOperation({ summary: '게시글 상세', description: '게시글 상세 API' })
   async findOne(@Param('id') id: number) {
-    return new PostEntity(await this.postService.findOne(id));
+    return await this.postService.findOne(id);
   }
 
   @Patch(':id')
@@ -41,6 +54,7 @@ export class PostController {
   }
 
   @Delete(':id')
+  @HttpCode(204)
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('access-token')
   @ApiOperation({ summary: '게시글 삭제', description: '게시글 삭제 API' })
