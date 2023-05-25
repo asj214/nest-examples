@@ -1,8 +1,7 @@
 import { Injectable, NotFoundException, NotAcceptableException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getRepository } from 'typeorm';
-import { PostDto } from './dto/post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
+import { Repository } from 'typeorm';
+import { PostDto, UpdatePostDto } from './dto/post.dto';
 import { PostEntity } from './entities/post.entity';
 import { User } from 'src/user/entities/user.entity';
 
