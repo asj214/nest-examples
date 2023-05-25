@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 import { IsEmail } from 'class-validator';
 import { Exclude } from 'class-transformer';
 import { PostEntity } from "src/post/entities/post.entity";
+import { Comment } from "src/comment/entities/comment.entity";
 import * as argon2 from 'argon2';
 
 @Entity({ name: 'users' })
@@ -40,6 +41,9 @@ export class User {
 
   @OneToMany(type => PostEntity, post => post.user)
   posts: PostEntity[];
+
+  @OneToMany(type => Comment, comment => comment.user)
+  comments: Comment[];
 
   constructor(partial?: Partial<User>) {
     if (partial) Object.assign(this, partial);

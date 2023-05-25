@@ -71,3 +71,37 @@ Authorization: Bearer {{ token }}
 DELETE {{ BASE_URL }}/posts/8
 Content-Type: application/json
 Authorization: Bearer {{ token }}
+
+
+###
+GET {{ BASE_URL }}/comments?commentableType=post&commentableId=1&take=0
+Content-Type: application/json
+Authorization: Bearer {{ token }}
+
+
+###
+POST {{ BASE_URL }}/comments
+Content-Type: application/json
+Authorization: Bearer {{ token }}
+
+{
+  "commentableType": "post",
+  "commentableId": 1,
+  "body": "ABC ABC ABC ABCD"
+}
+
+###
+GET {{ BASE_URL }}/comments/1
+Content-Type: application/json
+Authorization: Bearer {{ token }}
+
+###
+PATCH {{ BASE_URL }}/comments/1
+Content-Type: application/json
+Authorization: Bearer {{ token }}
+
+{
+  "commentableType": "post",
+  "commentableId": 1,
+  "body": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+}

@@ -27,7 +27,7 @@ export class Comment {
   @IsNotEmpty()
   commentableId: number;
 
-  @ManyToOne(type => User, user => user.posts)
+  @ManyToOne(type => User, user => user.comments)
   @JoinColumn({ name: "user_id" })
   user: User;
 
