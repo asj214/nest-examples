@@ -10,6 +10,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { PostModule } from './post/post.module';
 import { CommentModule } from './comment/comment.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { CommentModule } from './comment/comment.module';
     UserModule,
     AuthModule,
     PostModule,
-    CommentModule
+    CommentModule,
+    CategoriesModule
   ],
   controllers: [AppController],
   providers: [
