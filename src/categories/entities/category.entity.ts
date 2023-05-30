@@ -18,6 +18,9 @@ export class Category {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
+  @Column({ name: "parent_id", nullable: true })
+  parentId: number;
+
   @ManyToOne(() => Category, category => category.subcategories, { nullable: true })
   @JoinColumn({ name: "parent_id" })
   parent: Category;
