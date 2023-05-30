@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { PostModule } from './post/post.module';
 import { CommentModule } from './comment/comment.module';
 import { CategoriesModule } from './categories/categories.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { CategoriesModule } from './categories/categories.module';
     AuthModule,
     PostModule,
     CommentModule,
-    CategoriesModule
+    CategoriesModule,
+    ProductModule
   ],
   controllers: [AppController],
   providers: [

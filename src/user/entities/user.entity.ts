@@ -4,6 +4,7 @@ import { Exclude } from 'class-transformer';
 import { PostEntity } from "src/post/entities/post.entity";
 import { Comment } from "src/comment/entities/comment.entity";
 import { Category } from "src/categories/entities/category.entity";
+import { Product } from "src/product/entities/product.entity";
 import * as argon2 from 'argon2';
 
 @Entity({ name: 'users' })
@@ -49,7 +50,8 @@ export class User {
   @OneToMany(type => Category, category => category.user)
   categories: Category[];
 
-  
+  @OneToMany(type => Product, product => product.user)
+  products: Product[];
 
   constructor(partial?: Partial<User>) {
     if (partial) Object.assign(this, partial);

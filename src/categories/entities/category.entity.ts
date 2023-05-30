@@ -7,11 +7,14 @@ import {
   DeleteDateColumn,
   ManyToOne,
   OneToMany,
-  JoinColumn
+  JoinColumn,
+  ManyToMany,
+  JoinTable
 } from "typeorm";
 import { IsNumber, IsNotEmpty } from 'class-validator';
 import { Exclude } from 'class-transformer';
 import { User } from "src/user/entities/user.entity";
+import { Product } from "src/product/entities/product.entity";
 
 @Entity({ name: 'categories' })
 export class Category {
@@ -56,6 +59,10 @@ export class Category {
   @Exclude()
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt: Date;
+
+  @ManyToMany(() => Product)
+  @JoinTable()
+  products: Product[];
 
   constructor(partial?: Partial<Category>) {
     if (partial) Object.assign(this, partial);
