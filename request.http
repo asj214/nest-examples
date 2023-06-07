@@ -128,3 +128,21 @@ Authorization: Bearer {{ token }}
 GET {{ BASE_URL }}/categories/1
 Content-Type: application/json
 Authorization: Bearer {{ token }}
+
+
+###
+GET {{ BASE_URL }}/products?categoryId=3&name=No.1
+Content-Type: application/json
+Authorization: Bearer {{ token }}
+
+
+###
+POST {{ BASE_URL }}/products
+Content-Type: application/json
+Authorization: Bearer {{ token }}
+
+{
+  "name": "Category No.1 Child No. 3",
+  "price": 15000,
+  "categoryIds": [3]
+}

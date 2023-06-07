@@ -8,8 +8,8 @@ import {
   Param,
   Delete,
   Request,
-  HttpCode,
   UsePipes,
+  HttpCode,
   UseGuards,
   ValidationPipe,
   UseInterceptors,
@@ -18,7 +18,7 @@ import {
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { ProductService } from './product.service';
-import { CreateProductDto, UpdateProductDto } from './dto/product.dto';
+import { SearchProductDto, CreateProductDto, UpdateProductDto } from './dto/product.dto';
 
 @ApiTags('products')
 @Controller('products')
@@ -30,14 +30,15 @@ export class ProductController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('access-token')
   @ApiOperation({ summary: '상품 신규 등록', description: '상품 등록 API' })
-  create(@Body() dto: CreateProductDto) {
-    return this.productService.create(dto);
+  create(@Request() request, @Body() dto: CreateProductDto) {
+    return this.productService.create(request.user, dto);
   }
 
   @Get()
+  @UsePipes(new ValidationPipe({ transform: true }))
   @ApiOperation({ summary: '상품 목록', description: '상품 목록 API' })
-  findAll() {
-    return this.productService.findAll();
+  findAll(@Query() query: SearchProductDto) {
+    return this.productService.findAll(query);
   }
 
   @Get(':id')

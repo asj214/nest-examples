@@ -1,7 +1,6 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ValidationPipe } from "@nestjs/common";
 import { APP_PIPE } from "@nestjs/core";
 import { AppController } from './app.controller';
 import { AppService } from './app.service';

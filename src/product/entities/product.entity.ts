@@ -7,6 +7,7 @@ import {
   DeleteDateColumn,
   ManyToOne,
   JoinColumn,
+  JoinTable,
   ManyToMany
 } from "typeorm";
 import { IsNumber, IsNotEmpty } from 'class-validator';
@@ -28,6 +29,7 @@ export class Product {
   name: string;
 
   @Column('decimal', { precision: 10, scale: 2 })
+  @IsNumber()
   price: number;
 
   @CreateDateColumn({ name: 'created_at' })
@@ -41,6 +43,7 @@ export class Product {
   deletedAt: Date;
 
   @ManyToMany(() => Category)
+  @JoinTable()
   categories: Category[];
 
   constructor(partial?: Partial<Product>) {
