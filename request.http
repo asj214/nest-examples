@@ -146,3 +146,9 @@ Authorization: Bearer {{ token }}
   "price": 15000,
   "categoryIds": [3]
 }
+
+
+###
+GET {{ BASE_URL }}/products/2
+Content-Type: application/json
+Authorization: Bearer {{ token }}
