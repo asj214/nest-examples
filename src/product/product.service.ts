@@ -67,11 +67,11 @@ export class ProductService {
     return product;
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async update(id: number, dto: UpdateProductDto) {
+    return await this.productRepository.update(id, dto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: number) {
+    return await this.productRepository.softDelete({ id: id });
   }
 }
